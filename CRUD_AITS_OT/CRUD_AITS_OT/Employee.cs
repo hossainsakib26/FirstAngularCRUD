@@ -20,8 +20,8 @@ namespace CRUD_AITS_OT
         public string email { get; set; }
         public string contact_prefarence { get; set; }
         public string gender { get; set; }
-        
-        public DateTime birthdate { get; set; }
+        public Nullable<System.DateTime> birthdate { get; set; }
         public string address { get; set; }
+        public string image { get; set; }
     }
 }

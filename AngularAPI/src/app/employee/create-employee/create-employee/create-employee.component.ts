@@ -23,6 +23,7 @@ export class CreateEmployeeComponent implements OnInit {
     gender: 'Male',
     birthdate: null,
     address: null,
+    image: null
   
   };
   emplist: Employee[];
