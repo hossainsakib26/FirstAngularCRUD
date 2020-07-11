@@ -1,0 +1,25 @@
+<div *ngIf="employee != null || employee != undefined">
+  <div class="card-deck">
+    <div class="card">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body float-right">
+        <h5 class="card-title">
+          {{employee.name}}
+        </h5>
+        Phone: {{employee.phone}} <br>
+        Email: {{employee.email}} <br>
+        Contact On: {{employee.contact_prefarence}} <br>
+        Gender: {{employee.gender}} <br>
+        Date of Birth: {{employee.birthdate}} <br>
+        Address: {{employee.address}} <br>
+      </div>
+      <div class="card-footer">
+        <!--(click)="goBacktoList()"-->
+        <button class="btn btn-secondary" (click)="goBacktoList()">Go Back</button>
+        <button class="btn btn-primary pull-right" (click)="viewNextEmployee()">View Next</button>
+        <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
+        <button class="btn btn-info" (click)="updateEmployee(employee.id)">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

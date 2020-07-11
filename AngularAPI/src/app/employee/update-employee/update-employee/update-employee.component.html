@@ -1,0 +1,77 @@
+<form #updateEmpForm="ngForm" (ngSubmit)="updateEmployee()">
+    <div *ngIf="getEmployee != null && getEmployee.id > 0">
+        <div class="card" style="width: 70%;">
+            <div class="card-body">
+                <h5 class="card-title">Create Employee</h5>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="name" class="conrol-label">Name</label>
+                        <input id="name" type="text" class="form-control" 
+                                [(ngModel)]="getEmployee.name" name="empName">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" class="form-control" 
+                                [(ngModel)]="getEmployee.email"
+                            name="empEmail">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone</label>
+                        <input id="phone" type="text" class="form-control" 
+                                [(ngModel)]="getEmployee.phone"
+                            name="empPhone">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Contact Preference</label>
+                        <div class="form-control">
+                            <label class="radio-inline">
+                                <input type="radio" value="Email" 
+                                        [(ngModel)]="getEmployee.contact_prefarence"
+                                    name="prefsdarence">
+                                Email
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" value="Phone" 
+                                        [(ngModel)]="getEmployee.contact_prefarence"
+                                    name="prefarence">
+                                Phone
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="gender" class="control-lavel">Gender</label>
+                        <select id="gender" class="form-control" name="empGender" 
+                                [(ngModel)]="getEmployee.gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="birthdate" class="control-lavel">Date of Birth</label>
+                        <input id="birthdate" type="date" class="form-control" 
+                                [(ngModel)]="getEmployee.birthdate"
+                                name="empbirthdate">
+                    </div>
+                    <div class="form-group col-md 06">
+                        <label for="address" class="control-lavel">Address</label>
+                        <input id="address" type="text" class="form-control" 
+                                [(ngModel)]="getEmployee.address"
+                            name="empaddress">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-info" type="submit">Update</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+Model bind: {{getEmployee | json}}
