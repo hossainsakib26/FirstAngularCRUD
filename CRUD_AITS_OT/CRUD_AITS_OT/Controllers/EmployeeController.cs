@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -78,6 +80,14 @@ namespace CRUD_AITS_OT.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+
+            //string fileName = Path.GetFileNameWithoutExtension(employee.userImage.FileName);
+            //string extension = Path.GetExtension(employee.userImage.FileName);
+            //fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            //employee.imagePath = "/image/" + fileName;
+            //string path = Path.Combine("image", "images",fileName);
+            //employee.userImage.SaveAs(path);
 
             db.Employees.Add(employee);
             db.SaveChanges();

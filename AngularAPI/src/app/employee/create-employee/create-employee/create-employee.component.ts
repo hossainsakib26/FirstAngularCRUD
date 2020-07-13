@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CreateEmployeeComponent implements OnInit {
   
-  imageUrl: string = "";
+  localImageUrl: string = "";
   fileupload: File = null;
   employee: Employee= {
   
@@ -23,7 +23,8 @@ export class CreateEmployeeComponent implements OnInit {
     gender: 'Male',
     birthdate: null,
     address: null,
-    image: null
+    imagePath: this.localImageUrl,
+    userImage: null
   
   };
   emplist: Employee[];
@@ -49,7 +50,7 @@ export class CreateEmployeeComponent implements OnInit {
       //image preview
       var viewImageReader =  new FileReader();
       viewImageReader.onload = (event: any) => {
-        this.imageUrl = event.target.result;
+        this.localImageUrl = event.target.result;
       };
       viewImageReader.readAsDataURL(this.fileupload);
   }

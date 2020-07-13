@@ -9,6 +9,7 @@ import { Employee } from 'src/app/models/employee.model';
 export class DisplayEmployeeComponent implements OnInit {
 
   @Input() employee: Employee;
+  
   constructor() { }
 
   ngOnInit(): void {

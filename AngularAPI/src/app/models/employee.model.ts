@@ -7,5 +7,6 @@ export class Employee {
     gender: string = '';
     birthdate: Date = new Date();
     address: string = '';
-    image: string = '';
+    userImage: any;
+    imagePath: string = '';
 }

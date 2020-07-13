@@ -15,10 +15,22 @@
       </div>
       <div class="card-footer">
         <!--(click)="goBacktoList()"-->
-        <button class="btn btn-secondary" (click)="goBacktoList()">Go Back</button>
-        <button class="btn btn-primary pull-right" (click)="viewNextEmployee()">View Next</button>
-        <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
-        <button class="btn btn-info" (click)="updateEmployee(employee.id)">Update</button>
+        <!-- <div class="pull-left">
+          <button class="btn btn-secondary pull-left" (click)="goBacktoList()">Go Back</button>
+        </div>
+        <div class="pull-left">
+          <button class="btn btn-primary pull-left" (click)="viewNextEmployee()">View Next</button>
+        </div>
+        <div class="pull-left">
+          <button class="btn btn-danger pull-left" (click)="deleteEmployee(employee.id)">Delete</button>
+        </div>
+        <div class="pull-left">
+          <button class="btn btn-info pull-left" (click)="updateEmployee(employee.id)">Update</button>
+        </div> -->
+        <button class="btn btn-secondary pull-left" (click)="goBacktoList()">Go Back</button>
+        <button class="btn btn-primary pull-left" (click)="viewNextEmployee()">View Next</button>
+        <button class="btn btn-danger pull-left" (click)="deleteEmployee(employee.id)">Delete</button>
+        <button class="btn btn-info pull-left" (click)="updateEmployee(employee.id)">Update</button>
       </div>
     </div>
   </div>

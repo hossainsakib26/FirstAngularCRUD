@@ -17,7 +17,6 @@
           <Property Name="gender" Type="nvarchar" MaxLength="50" />
           <Property Name="birthdate" Type="date" />
           <Property Name="address" Type="nvarchar(max)" />
-          <Property Name="image" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="AngularCRUDModelStoreContainer">
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
@@ -26,6 +25,9 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AngularCRUDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AngularCRUDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="AngularCRUDModel.Employee" />
+        </EntityContainer>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="id" />
@@ -38,11 +40,7 @@
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="birthdate" Type="DateTime" Precision="0" />
           <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="AngularCRUDEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Employees" EntityType="Self.Employee" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -52,15 +50,14 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="AngularCRUDModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="contact_prefarence" ColumnName="contact_prefarence" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
                 <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="contact_prefarence" ColumnName="contact_prefarence" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
