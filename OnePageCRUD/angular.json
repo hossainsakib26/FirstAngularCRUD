@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "OnePageCRUD"
+    }
+  },
+  "defaultProject": "OnePageCRUD",
+  "cli": {
+    "analytics": false
+  }
 }
