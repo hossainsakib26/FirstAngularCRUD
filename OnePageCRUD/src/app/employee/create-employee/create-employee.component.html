@@ -1,8 +1,9 @@
 <form #createEmpForm="ngForm" (ngSubmit)="saveEmp()">
     <div class="card" style="width: 70%;">
         <div class="card-body">
-            <h5 class="card-title">Create Employee</h5>
 
+            <h5 class="card-title" *ngIf="employee.id == 0">Create Employee</h5>
+            <h5 class="card-title" *ngIf="employee.id > 0">Update Employee</h5>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="name" class="conrol-label">Name</label>
@@ -60,7 +61,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-info mx-2">Save</button>
+                <button type="submit" class="btn btn-info mx-2" *ngIf="this.employee.id == 0">Save</button>
+                <button type="submit" class="btn btn-info mx-2" *ngIf="this.employee.id > 0">Update</button>
             </div>
         </div>
     </div>

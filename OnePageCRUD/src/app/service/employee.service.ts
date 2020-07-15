@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Employee } from '../models/employee.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,21 @@ export class EmployeeService {
     return this._http.get<Employee>(this.getSingleEmpUrl + empId);
   }
 
+  
+  private _refreshList = new Subject<Employee>();
+  
+  get refreshList(){
+    return this._refreshList;
+  }
+
   private readonly saveEmpURL: string = "https://localhost:44321/api/Employee";
   saveEmployee(employee: Employee){
-    return this._http.post<Employee>(this.saveEmpURL, employee);
+    return this._http.post<Employee>(this.saveEmpURL, employee).pipe(
+      tap
+        (
+          () => this._refreshList.next()
+        )
+    )
   }
 
   private readonly deleteEmpUrl: string = "https://localhost:44321/api/Employee/";

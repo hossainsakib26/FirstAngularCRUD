@@ -16,9 +16,14 @@ export class ListEmployeesComponent implements OnInit {
   constructor(private _service: EmployeeService, private _updateService: UpdateEmployeeService) { }
 
   ngOnInit(): void {
+
+    this._service.refreshList.subscribe(
+      () => {
+        this.refreshList();
+      }
+    )
     this.refreshList();
   }
-
   
   ////////////////////////////////////////////////////////////
   refreshList(){
@@ -29,11 +34,11 @@ export class ListEmployeesComponent implements OnInit {
 
   emoloyeeUpdate(emp: Employee){
     this._updateService.changeEmployee(emp);
-    alert("Wana edit this employee: " + emp.name +"?");
+    alert("Wanna edit this employee: " + emp.name +"?");
   }
 
   deleteEmployee(id: number){
-    alert("Are you sure you want to delete this Employee! "+id);
+    alert("Are you sure! You want to delete this Employee! "+id);
     this._service.deleteEmployeeById(id).subscribe(
       (res: any) => {
         this.employees = this.employees.filter(c=> c.id != id)

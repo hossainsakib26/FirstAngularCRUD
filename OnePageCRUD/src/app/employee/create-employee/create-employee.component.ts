@@ -18,42 +18,42 @@ export class CreateEmployeeComponent implements OnInit {
     contact_prefarence: null,
     gender: null,
     address: null,
-    birthdate:null
+    birthdate: null
   };
-  
+
   listEmployee: Employee[];
-  dataFromListEmp: any;
 
-  constructor(private _service: EmployeeService, 
-              private _updateService: UpdateEmployeeService
-              ) { }
+  constructor(private _service: EmployeeService,
+    private _updateService: UpdateEmployeeService
+  ) { }
 
-  ngOnInit(): void { 
-    // this._updateService.currentEmp.subscribe(
-    //   emp => this.dataFromListEmp = emp
-    // )
-   }
+  ngOnInit(): void {
 
-  updateEmployee(){
-    
+    this._updateService.currentEmp.subscribe((emp: Employee) => {
+      if (emp != null && emp.id > 0)
+        this.employee = emp
+    })
   }
 
   /////////////////////////////////////////////////////
-  refreshEmployee(){
-    this._service.getEmployees().subscribe(
-        (emps) => this.listEmployee = emps
-      );
-  }
+  saveEmp() {
 
-  saveEmp(){
     //get the new employee
     const newEmp: Employee = Object.assign({}, this.employee);
-    this._service.saveEmployee(newEmp).subscribe(
-      (res: any) => {
-        alert("New Employee " + res.name);
-      }
-    )
-    this.employee;
+    if (newEmp.id === 0) {
+      this._service.saveEmployee(newEmp).subscribe(
+        (res: any) => {
+          //alert("New Employee " + res.name);
+        }
+      )
+    }
+    else if(newEmp.id > 0)
+    {
+      this._service.updateEmployeeByID(this.employee.id, this.employee).subscribe(
+        (emp : any) => {
+            alert("Employee Update Successfully!");
+        }
+      )
+    }
   }
-
 }
