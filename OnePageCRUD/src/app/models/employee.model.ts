@@ -7,4 +7,5 @@ export class Employee {
     gender: string = '';
     birthdate: Date = new Date();
     address: string = '';
+    department_id: number = 0;
 }

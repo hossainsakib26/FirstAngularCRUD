@@ -5,7 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7507ce85c2b64641a3808ae0fec05be4" Name="Diagram1">
-        <EntityTypeShape EntityType="AngularCRUDModel.Employee" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AngularCRUDModel.Employee" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="AngularCRUDModel.Department" Width="1.5" PointX="0.5" PointY="1.5" />
+        <AssociationConnector Association="AngularCRUDModel.FK_Employees_Departments" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

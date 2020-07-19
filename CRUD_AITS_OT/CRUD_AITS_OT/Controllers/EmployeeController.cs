@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Collections.Generic;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using CRUD_AITS_OT;
 
 namespace CRUD_AITS_OT.Controllers
 {
@@ -19,22 +13,55 @@ namespace CRUD_AITS_OT.Controllers
         private AngularCRUDEntities db = new AngularCRUDEntities();
 
         // GET: api/Employee
-        public IQueryable<Employee> GetEmployees()
+        public IHttpActionResult GetEmployees()
         {
-            return db.Employees;
+            var dataList = db.Employees
+                   .Include(c => c.Department)
+                  .ToList();
+
+
+            var data = dataList.Select(c => new
+            {
+                address = c.address ?? "--",
+                c.birthdate,
+                c.contact_prefarence,
+                c.department_id,
+                email = c.email ?? "--",
+                gender = c.gender ?? "--",
+                c.id,
+                name = c.name ?? "--",
+                phone = c.phone ?? "--",
+                departmentName = c.Department?.name ?? "--",
+                departmentCode = c.Department?.code ?? "--"
+            });
+
+            return Ok(data);
         }
 
         // GET: api/Employee/5
         [ResponseType(typeof(Employee))]
         public IHttpActionResult GetEmployee(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            var model = db.Employees.FirstOrDefault(c => c.id == id);
+            if (model != null)
             {
-                return NotFound();
+                var dto = new
+                {
+                    address = model.address ?? "--",
+                    birthdate = model.birthdate,
+                    contact_prefarence = model.contact_prefarence,
+                    department_id = model.department_id,
+                    email = model.email ?? "--",
+                    gender = model.gender ?? "--",
+                    id = model.id,
+                    name = model.name ?? "--",
+                    phone = model.phone ?? "--",
+                    departmentName = model.Department?.name ?? "--",
+                    departmentCode = model.Department?.code ?? "--"
+                };
+                return Ok(dto);
             }
-
-            return Ok(employee);
+            return NotFound();
         }
 
         // PUT: api/Employee/5
@@ -80,15 +107,6 @@ namespace CRUD_AITS_OT.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-
-            //string fileName = Path.GetFileNameWithoutExtension(employee.userImage.FileName);
-            //string extension = Path.GetExtension(employee.userImage.FileName);
-            //fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            //employee.imagePath = "/image/" + fileName;
-            //string path = Path.Combine("image", "images",fileName);
-            //employee.userImage.SaveAs(path);
-
             db.Employees.Add(employee);
             db.SaveChanges();
 

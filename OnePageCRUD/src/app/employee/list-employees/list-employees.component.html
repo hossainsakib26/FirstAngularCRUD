@@ -1,16 +1,17 @@
 <div class="row">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" style="font-size: 1vw;">
         <thead>
             <tr>
                 <th>#id</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Contact By</th>
-                <th>Gender</th>
-                <th>Date of Birth</th>
-                <th>Address</th>
-                <th>##</th>
+                <th id="name">Name</th>
+                <th id="phone">Phone</th>
+                <th id="email">Email</th>
+                <th id="contactby">Contact By</th>
+                <th id="gender">Gender</th>
+                <th id="dob">Date of Birth</th>
+                <th id="address">Address</th>
+                <th id="address">Department</th>
+                <th id="action">##</th>
             </tr>
         </thead>
         <tbody *ngFor = "let employee of employees">
@@ -23,13 +24,12 @@
                 <td>{{employee.gender}}</td>
                 <td>{{employee.birthdate}}</td>
                 <td>{{employee.address}}</td>
+                <td>{{employee.department_id}}</td>
                 <td>
-                    <a (click)="emoloyeeUpdate(employee)" class="btn btn-warning my-2 mx-2">
-                        Edit
-                    </a>
-                    <a (click)="deleteEmployee(employee.id)" class=" btn btn-danger my-2 mx-2">
-                        Delete
-                    </a>
+                    <a (click)="emoloyeeUpdate(employee)" 
+                        class="btn btn-warning my-1 mx-2"><i class="fa fa-edit"></i></a>
+                    <a (click)="deleteEmployee(employee.id)" 
+                        class=" btn btn-danger my-1 mx-2"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         </tbody>

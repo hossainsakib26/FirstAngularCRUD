@@ -12,18 +12,19 @@ namespace CRUD_AITS_OT
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Department
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Department()
+        {
+            this.Employees = new HashSet<Employee>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
-        public string phone { get; set; }
-        public string email { get; set; }
-        public string contact_prefarence { get; set; }
-        public string gender { get; set; }
-        public Nullable<System.DateTime> birthdate { get; set; }
-        public string address { get; set; }
-        public Nullable<int> department_id { get; set; }
+        public string code { get; set; }
     
-        public virtual Department Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

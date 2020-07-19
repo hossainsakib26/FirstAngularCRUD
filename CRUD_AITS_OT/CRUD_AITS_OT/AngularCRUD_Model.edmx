@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AngularCRUDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="code" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Employees">
           <Key>
             <PropertyRef Name="id" />
@@ -17,9 +25,27 @@
           <Property Name="gender" Type="nvarchar" MaxLength="50" />
           <Property Name="birthdate" Type="date" />
           <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="department_id" Type="int" />
         </EntityType>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AngularCRUDModelStoreContainer">
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -27,6 +53,11 @@
       <Schema Namespace="AngularCRUDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AngularCRUDEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="AngularCRUDModel.Employee" />
+          <EntitySet Name="Departments" EntityType="AngularCRUDModel.Department" />
+          <AssociationSet Name="FK_Employees_Departments" Association="AngularCRUDModel.FK_Employees_Departments">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -40,7 +71,30 @@
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="birthdate" Type="DateTime" Precision="0" />
           <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="department_id" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="AngularCRUDModel.FK_Employees_Departments" FromRole="Employee" ToRole="Department" />
         </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="AngularCRUDModel.FK_Employees_Departments" FromRole="Department" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employees_Departments">
+          <End Type="AngularCRUDModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="AngularCRUDModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -50,12 +104,22 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="AngularCRUDModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="birthdate" ColumnName="birthdate" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="contact_prefarence" ColumnName="contact_prefarence" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="AngularCRUDModel.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

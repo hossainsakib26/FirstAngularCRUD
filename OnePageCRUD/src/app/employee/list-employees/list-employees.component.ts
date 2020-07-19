@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { EmployeeService } from "src/app/service/employee.service";
+import { EmployeeService } from "src/app/service/employee-service/employee.service";
 import { Employee } from 'src/app/models/employee.model';
-import { UpdateEmployeeService } from "../../service/update-employee.service";
+import { UpdateEmployeeService } from "../../service/employee-service/update-employee.service";
 
 @Component({
   selector: 'app-list-employees',
@@ -11,8 +11,7 @@ import { UpdateEmployeeService } from "../../service/update-employee.service";
 export class ListEmployeesComponent implements OnInit {
 
   employees: Employee[];
-  updateEmployee : Employee;
-  @Output() updatableEmployee = new EventEmitter<Employee>();  
+  
   constructor(private _service: EmployeeService, private _updateService: UpdateEmployeeService) { }
 
   ngOnInit(): void {

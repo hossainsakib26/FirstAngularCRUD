@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Employee } from '../models/employee.model';
+import { Employee } from '../../models/employee.model';
 import { Observable, Subject } from 'rxjs';
 import { tap } from "rxjs/operators";
 
@@ -21,7 +21,7 @@ export class EmployeeService {
     return this._http.get<Employee>(this.getSingleEmpUrl + empId);
   }
 
-  
+  //subject add for automatiic refresh list
   private _refreshList = new Subject<Employee>();
   
   get refreshList(){

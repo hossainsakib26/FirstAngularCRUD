@@ -26,5 +26,6 @@ namespace CRUD_AITS_OT
         }
     
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     }
 }

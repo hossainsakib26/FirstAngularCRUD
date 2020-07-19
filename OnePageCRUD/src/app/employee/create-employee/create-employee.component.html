@@ -1,71 +1,113 @@
-<form #createEmpForm="ngForm" (ngSubmit)="saveEmp()">
-    <div class="card" style="width: 70%;">
-        <div class="card-body">
+<div class="row">
+    <div class="col">
+        <!-- (ngSubmit)="saveEmp()" -->
+        <form #createEmpForm="ngForm">
+            <div class="card" style="width: 70%;">
+                <div class="card-body">
 
-            <h5 class="card-title" *ngIf="employee.id == 0">Create Employee</h5>
-            <h5 class="card-title" *ngIf="employee.id > 0">Update Employee</h5>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="name" class="conrol-label">Name</label>
-                    <input id="name" type="text" class="form-control" 
-                            [(ngModel)]="employee.name" name="empName">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="email">Email</label>
-                    <input id="email" type="text" class="form-control" 
-                            [(ngModel)]="employee.email" name="empEmail">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="phone">Phone</label>
-                    <input id="phone" type="text" class="form-control" 
-                            [(ngModel)]="employee.phone" name="empPhone">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label class="control-label">Contact Preference</label>
-                    <div class="form-control">
-                        <label class="radio-inline mx-2">
-                            <input type="radio" value="Email" 
-                                    [(ngModel)]="employee.contact_prefarence" name="prefsdarence">
-                            Email
-                        </label>
-                        <label class="radio-inline mx-2">
-                            <input type="radio" value="Phone" 
-                                    [(ngModel)]="employee.contact_prefarence" name="prefarence">
-                             Phone
-                        </label>
+                    <h5 class="card-title" *ngIf="employee.id == 0">Create Employee</h5>
+                    <h5 class="card-title" *ngIf="employee.id > 0">Update Employee</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name" class="conrol-label">Name</label>
+                            <input id="name" type="text" class="form-control" [(ngModel)]="employee.name"
+                                name="empName">
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="department" class="conrol-label">Department</label>
+                            <!-- [(ngModel)]="employee.department_id" -->
+                            <select id="department" class="form-control" name="empDepartment"
+                                [(ngModel)]="employee.department_id">
+                                <option *ngFor="let dept of departments" [value]="dept.id" >
+                                        {{dept.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- modal start -->
+                        <!-- Button trigger modal -->
+                        <div class="form-group col-md-1 mt-4 text-center pt-2">
+                            <button id="addDept" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <app-create-department style="font-size: 0.8vw;"></app-create-department>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input id="email" type="text" class="form-control" [(ngModel)]="employee.email"
+                                name="empEmail">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone">Phone</label>
+                            <input id="phone" type="text" class="form-control" [(ngModel)]="employee.phone"
+                                name="empPhone">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Contact Preference</label>
+                            <div class="form-control">
+                                <label class="radio-inline mx-2">
+                                    <input type="radio" value="Email" [(ngModel)]="employee.contact_prefarence"
+                                        name="prefsdarence">
+                                    Email
+                                </label>
+                                <label class="radio-inline mx-2">
+                                    <input type="radio" value="Phone" [(ngModel)]="employee.contact_prefarence"
+                                        name="prefarence">
+                                    Phone
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="gender" class="control-lavel">Gender</label>
+                            <select id="gender" class="form-control" name="empGender" [(ngModel)]="employee.gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="birthdate" class="control-lavel">Date of Birth</label>
+                            <input id="birthdate" class="form-control" [(ngModel)]="employee.birthdate"
+                                name="empbirthdaate" placeholder="Choose Your Birthday" type="date">
+                        </div>
+
+                        <div class="form-group col-md 06">
+                            <label for="address" class="control-lavel">Address</label>
+                            <input id="address" type="text" class="form-control" [(ngModel)]="employee.address"
+                                name="empaddress">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button (click)="saveEmp()" class="btn btn-info mx-2"
+                            *ngIf="this.employee.id == 0">Save</button>
+                        <button (click)="saveEmp()" class="btn btn-info mx-2"
+                            *ngIf="this.employee.id > 0">Update</button>
                     </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="gender" class="control-lavel">Gender</label>
-                        <select id="gender" class="form-control" name="empGender" 
-                                [(ngModel)]="employee.gender" >
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                <label for="birthdate" class="control-lavel">Date of Birth</label>
-                    <input id="birthdate" type="date" class="form-control" 
-                            [(ngModel)]="employee.birthdate" name="empbirthdaate">
-                </div>
-                <div class="form-group col-md 06">
-                    <label for="address" class="control-lavel">Address</label>
-                    <input id="address" type="text" class="form-control" 
-                            [(ngModel)]="employee.address" name="empaddress">
-                </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-info mx-2" *ngIf="this.employee.id == 0">Save</button>
-                <button type="submit" class="btn btn-info mx-2" *ngIf="this.employee.id > 0">Update</button>
-            </div>
-        </div>
+        </form>
     </div>
-</form>
+</div>
 <br>
-From Employee Model: {{employee | json}}
+<div class="col-12">
+    <app-list-employees></app-list-employees>
+</div>
